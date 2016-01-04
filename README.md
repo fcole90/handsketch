@@ -86,6 +86,7 @@ The maximum length for code lines is peremptorily of 80 characters for JavaScrip
 | bootstrap slider  | Kyle J. Kemp                         | MIT        | https://github.com/seiyria/bootstrap-slider |
 | jQueryUI.Ruler    | Emanuel Fernandes                    | MIT        | https://github.com/efernandesng/jquery-ui.ruler |
 | LeapJS            | Leap Motion, Inc                     | Apache 2.0 | https://github.com/leapmotion/leapjs |
+| paperjs           | Jürg Lehni, Jonathan Puckey          | [paperjs](https://github.com/paperjs/paper.js/blob/develop/LICENSE.txt) | http://paperjs.org/ |
 
 # License
 The project is licensed under GPL 3. See [LICENSE](/LICENSE) file for the full
