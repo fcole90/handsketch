@@ -2,10 +2,18 @@
 
 ![Screenshot](http://i1383.photobucket.com/albums/ah312/m-programmer/handsketch_zpsqpojkxep.png)
 
+<a href="https://github.com/fcole90/handsketch/blob/master/demo.md" target="_blank">View demo</a>
+
 # Overview
 HandSketch is a prototype of application intended as an experiment of Human-Computer interaction. The idea behind it is to develop a set of toolbars for a raster drawing application which rely only on gestual interaction to switch drawing instruments and their settings, allowing the mouse cursor to not leave the canvas during drawing. The gestual input is provided through a Leap Motion sensor.
 
 The program provides very basic drawing instuments on a raster canvas. It has a side toolbar whose widgets provide the selection of the active drawing tool, the color and the tool options. Each widget is activated and controlled through a proper rotation gesture, and the numeric value of the settings is controlled with a circle gesture.
+
+#### Input choice
+![input](https://user-images.githubusercontent.com/1292230/69498741-ef214c00-0ef3-11ea-9f7a-be51d6e29aaa.gif)
+
+#### Selector choice
+![selector](https://user-images.githubusercontent.com/1292230/69498742-f0527900-0ef3-11ea-96cc-28cfe4a3b166.gif)
 
 # Compile and run
 Just make the application, running on the command line (requires `make` and `awk`):
