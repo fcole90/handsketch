@@ -23,10 +23,10 @@ make
 and then open the resulting file `HandSketch.html` in your web browser.
 
 # Team members
-+ [fcole90](https://github.com/fcole90)
-+ [flamel13](https://github.com/flamel13)
-+ [HichamL](https://github.com/HichamL)
-+ [m-pilia](https://github.com/m-pilia)
++ [Martino Pilia](https://martinopilia.com/)
++ [Fabio Colella](https://www.linkedin.com/in/fabio-colella-099858162/)
++ [Michele Contu](https://www.linkedin.com/mynetwork/invite-sent/michele-contu-0042aaa2/)
++ [Hicham Lafhouli](https://github.com/HichamL)
 
 # Contributing
 ## File tree
