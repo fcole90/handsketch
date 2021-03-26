@@ -24,8 +24,8 @@ and then open the resulting file `HandSketch.html` in your web browser.
 
 # Team members
 + [Martino Pilia](https://martinopilia.com/)
-+ [Fabio Colella](https://www.linkedin.com/in/fabio-colella-099858162/)
-+ [Michele Contu](https://www.linkedin.com/mynetwork/invite-sent/michele-contu-0042aaa2/)
++ [Fabio Colella](https://www.linkedin.com/in/fcole90/)
++ [Michele Contu](https://www.linkedin.com/in/michele-contu/)
 + [Hicham Lafhouli](https://github.com/HichamL)
 
 # Contributing
