@@ -1,8 +1,13 @@
 # HandSketch - HCI Class Final Project
 
-![Screenshot](http://i1383.photobucket.com/albums/ah312/m-programmer/handsketch_zpsqpojkxep.png)
+[![image](https://user-images.githubusercontent.com/1292230/112699718-22337100-8e95-11eb-88e1-acea3cb42729.png)](https://fcole90.github.io/handsketch/)
 
-<a href="https://github.com/fcole90/handsketch/blob/master/demo.md" target="_blank">View demo</a>
+[Try online demo (without LeapMotion support)](https://fcole90.github.io/handsketch/)
+[Play demonstration animation](https://github.com/fcole90/handsketch/blob/master/demo.md)
+
+## Awards 🏅
+Best and exemplary HCI projects of the academic year 2015/2016: our project was selected by the professor as one of the three best HCI projects of the academic year 2015/2016 and is preserved as an exemplary project in the professor's project archive.<br>
+Link (in Italian): https://people.unica.it/davidespano/teaching/ium/archivio-progetti/
 
 # Overview
 HandSketch is a prototype of application intended as an experiment of Human-Computer interaction. The idea behind it is to develop a set of toolbars for a raster drawing application which rely only on gestual interaction to switch drawing instruments and their settings, allowing the mouse cursor to not leave the canvas during drawing. The gestual input is provided through a Leap Motion sensor.
