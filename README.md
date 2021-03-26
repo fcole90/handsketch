@@ -2,8 +2,8 @@
 
 [![image](https://user-images.githubusercontent.com/1292230/112699718-22337100-8e95-11eb-88e1-acea3cb42729.png)](https://fcole90.github.io/handsketch/)
 
-[Try online demo (without LeapMotion support)](https://fcole90.github.io/handsketch/)
-[Play demonstration animation](https://github.com/fcole90/handsketch/blob/master/demo.md)
+ - [Try online demo (without LeapMotion support)](https://fcole90.github.io/handsketch/)
+ - [Play demonstration animation](https://github.com/fcole90/handsketch/blob/master/demo.md)
 
 ## Awards 🏅
 Best and exemplary HCI projects of the academic year 2015/2016: our project was selected by the professor as one of the three best HCI projects of the academic year 2015/2016 and is preserved as an exemplary project in the professor's project archive.<br>
