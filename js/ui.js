@@ -188,12 +188,6 @@ const ui = function ($) {
         popupList.map((_, raw_popup) => {
             let popup = $(raw_popup);
             // compute top and left distances
-            console.log('popup', popup);
-            console.log('$(window).height()', $(window).height());
-            console.log('popup.outerHeight(true)', popup.outerHeight(true));
-            console.log('difference', $(window).height() - popup.outerHeight(true));
-            console.log('difference / 2', ($(window).height() - popup.outerHeight(true)) / 2);
-
             var top = Math.max(0, ($(window).height() - popup.outerHeight(true)) / 2);
             var left = Math.max(0, ($(window).width() - popup.outerWidth(true)) / 2);
 
