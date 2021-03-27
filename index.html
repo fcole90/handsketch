@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>HandSketch</title>
+        <link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <!--  Essential META Tags -->
+        <meta property="og:title" content="HandSketch">
+        <meta property="og:description" content="Online gestural image editor.">
+        <meta property="og:image" content="https://user-images.githubusercontent.com/1292230/112699718-22337100-8e95-11eb-88e1-acea3cb42729.png">
+        <meta property="og:url" content="https://fcole90.github.io/handsketch/">
+        <meta name="twitter:card" content="https://user-images.githubusercontent.com/1292230/112699718-22337100-8e95-11eb-88e1-acea3cb42729.png">
+        <!--  Non-Essential, But Recommended -->
+        <meta property="og:site_name" content="HandSketch">
+        <meta name="twitter:image:alt" content="Screenshot of the website">
+
+
+        <!-- Library stylesheets -->
+        <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="lib/bootstrap-plugins/bootstrap-submenu/css/bootstrap-submenu.css">
+        <link rel="stylesheet" href="lib/bootstrap-plugins/bootstrap-slider/css/bootstrap-slider.css">
+        <link rel="stylesheet" href="lib/jqueryui-ruler/css/jquery.ui.ruler.css">
+
+        <!-- Custom stylesheets -->
+        <link rel="stylesheet" href="css/font.css">
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/circular_selector.css">
+        <link rel="stylesheet" href="css/color_picker.css">
+        <link rel="stylesheet" href="css/canvas_area.css">
+        <link rel="stylesheet" href="css/popup.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="css/light_theme.css" data-theme="Light" data-theme-default="true">
+        <link rel="stylesheet" href="css/dark_theme.css" data-theme="Dark">
+        <link rel="stylesheet" href="css/white_theme.css" data-theme="White">
+
+        <!-- Libraries -->
+        <script src="lib/jquery/jquery.min.js"></script>
+        <script src="lib/jquery-ui/jquery-ui.min.js"></script> <!-- needed by rulers lib -->
+        <script src="lib/jqueryui-ruler/js/jquery.ui.ruler.js"></script>
+        <script src="lib/bootstrap/js/bootstrap.min.js" defer></script>
+        <script src="lib/bootstrap-plugins/bootstrap-submenu/js/bootstrap-submenu.min.js" defer></script>
+        <script src="lib/bootstrap-plugins/bootstrap-slider/js/bootstrap-slider.min.js" defer></script>
+        <script src="lib/leapjs/leap-0.6.4.min.js"></script>
+
+    </head>
+    <body>
+        <!-- Menu bar (included) -->
+        <!-- #include menubar.html -->
+<!-- Menu bar -->
+<nav id="menu-bar" class="navbar navbar-default">
+
+    <!-- Menu bar header -->
+    <div class="navbar-header">
+        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+
+        <a class="navbar-brand">HandSketch</a>
+    </div>
+
+    <!-- Menu bar content -->
+    <div class="collapse navbar-collapse">
+
+        <!-- List of menu entries -->
+        <ul class="nav navbar-nav">
+
+            <!-- File -->
+            <li class="dropdown">
+                <a tabindex="0" data-toggle="dropdown" data-submenu>
+                    File<span class="caret"></span>
+                </a>
+
+                <!-- File submenu -->
+                <ul class="dropdown-menu">
+
+
+                    <!-- File->New -->
+                    <li>
+                        <a id="new-image" tabindex="0"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> New image <em>(Ctrl+A)</em></a>
+                    </li>
+
+                    <!-- File->Open -->
+                    <li>
+                        <a id="open-file" tabindex="0"><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> Open <em>(Ctrl+O)</em></a>
+                    </li>
+
+                    <!-- File->Save -->
+                    <li>
+                        <a id="save-file" tabindex="0"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Save <em>(Ctrl+S)</em></a>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- Edit -->
+            <li class="dropdown">
+                <a tabindex="0" data-toggle="dropdown" data-submenu>
+                    Edit<span class="caret"></span>
+                </a>
+
+                <!-- Edit submenu -->
+                <ul class="dropdown-menu">
+
+                    <!-- Edit->Undo -->
+                    <li>
+                        <a id="undo" tabindex="0">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Undo <em>(Ctrl+Z)</em></a>
+                    </li>
+
+                    <!-- Edit->Redo -->
+                    <li>
+                        <a id="redo" tabindex="0"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Redo <em>(Ctrl+Shift+Z)</em></a>
+                    </li>
+                </ul>
+            </li>
+
+
+            <!-- Themes -->
+            <li class="dropdown">
+                <a tabindex="0" data-toggle="dropdown" data-submenu>
+                    Themes<span class="caret"></span>
+                </a>
+
+                <!-- Themes submenu -->
+                <ul id="themes-submenu" class="dropdown-menu">
+
+                    <!-- This is filled dynamically -->
+
+                </ul>
+            </li>
+
+
+            <!-- Help -->
+            <li class="dropdown">
+                <a tabindex="0" data-toggle="dropdown" data-submenu>
+                    Help<span class="caret"></span>
+                </a>
+
+                <!-- Help submenu -->
+                <ul class="dropdown-menu">
+
+                    <!-- Help->about -->
+                    <li>
+                        <a id="about" tabindex="0"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> About</a>
+                    </li>
+
+                </ul>
+            </li>
+        </ul>
+
+        <!-- End of menu bar content -->
+    </div>
+</nav>
+<!-- End of menu bar -->
+
+        <div class="body-wrapper container-fluid">
+
+            <!-- Bootstrap grid row -->
+            <div class="row">
+
+                <!-- Left panel -->
+                <div class="side-panel">
+
+                    <!-- Tool selection widget -->
+                    <div class="row tool-widget-wrapper">
+                        <!-- #include tool_widget.html -->
+<!-- image providing an hint for the gesture -->
+<div title="Gesture: rotate your fully open hand" id="tool-selector-hint" class="selector-hint"></div>
+
+<!-- the tool selector -->
+<!-- just add or remove the entries here (as <li> items), all the style is
+     automatically adapted to fit the selector's size -->
+<ul id="tool-selector" class="circular-selector">
+    <li data-entry="brush">
+        <a><span title="Brush: draw with strokes" class="selector-entry"></span></a>
+    </li>
+
+    <li data-entry="eraser">
+        <a><span title="Eraser: erase with strokes" class="selector-entry"></span></a>
+    </li>
+
+    <li data-entry="airbrush">
+        <a><span title="Airbrush: paint with variable density" class="selector-entry"></span></a>
+    </li>
+
+     <li data-entry="filler">
+         <a><span title="Filler: fill an area with color" class="selector-entry"></span></a>
+     </li>
+
+     <li data-entry="picker">
+         <a><span title="Picker: select a color from the canvas" class="selector-entry"></span></a>
+     </li>
+</ul>
+
+<div id="tool-afford" class="afford"></div>
+
+<!-- svg path used to clip the menu item -->
+<!-- the actual path is drawn dynamically by the js -->
+<svg height="0" width="0">
+    <defs>
+        <clipPath clipPathUnits="objectBoundingBox" id="tool-sector">
+            <path fill="none" stroke="#111" stroke-width="1" class="tool-sector"></path>
+        </clipPath>
+    </defs>
+</svg>
+                    </div>
+
+                    <!-- Tool options widget -->
+                    <div class="row option-widget-wrapper">
+                        <!-- #include options_widget.html -->
+<!-- image providing an hint for the gesture -->
+<div title="Gesture: rotate your hand with thumb and index fingers open" id="option-selector-hint" class="selector-hint"></div>
+
+<ul id="brush-selector" class="circular-selector">
+    <li data-entry="thickness">
+        <a><span class="selector-entry"><input type="number" name="name" value="10" min="1" max="50"></span></a>
+    </li>
+
+    <li data-entry="shape">
+        <a>
+            <span class="selector-entry shape-entry">
+                <img data-shape="circle" src="img/circle.png" />
+                <img data-shape="square" src="img/square.png" />
+                <br />
+                <img data-shape="diamond" src="img/diamond.png" />
+            </span>
+        </a>
+    </li>
+
+    <li data-entry="opacity">
+        <a><span class="selector-entry"><input type="number" name="name" value="100" min="0" max="100"></span></a>
+    </li>
+
+    <!-- labels (following the same order of entries) -->
+    <span data-label="thickness">Thickness</span>
+    <span data-label="shape">Shape</span>
+    <span data-label="opacity">Opacity</span>
+</ul>
+<svg height="0" width="0">
+    <defs>
+        <clipPath clipPathUnits="objectBoundingBox" id="brush-sector">
+            <path fill="none" stroke="#111" stroke-width="1" class="brush-sector"></path>
+        </clipPath>
+    </defs>
+</svg>
+
+<ul id="airbrush-selector" class="circular-selector">
+    <li data-entry="thickness">
+        <a><span class="selector-entry"><input type="number" name="name" value="10" min="1" max="50"></span></a>
+    </li>
+
+    <li data-entry="shape">
+        <a>
+            <span class="selector-entry shape-entry">
+                <img data-shape="circle" src="img/circle.png" />
+                <img data-shape="square" src="img/square.png" />
+                <br />
+                <img data-shape="diamond" src="img/diamond.png" />
+            </span>
+        </a>
+    </li>
+
+    <li data-entry="opacity">
+        <a><span class="selector-entry"><input type="number" name="name" value="100" min="0" max="100"></span></a>
+    </li>
+
+    <li data-entry="density">
+        <a><span class="selector-entry"><input type="number" name="name" value="40" min="0" max="100"></span></a>
+    </li>
+
+    <span data-label="thickness">Thickness</span>
+    <span data-label="shape">Shape</span>
+    <span data-label="opacity">Opacity</span>
+    <span data-label="density">Density</span>
+</ul>
+<svg height="0" width="0">
+    <defs>
+        <clipPath clipPathUnits="objectBoundingBox" id="airbrush-sector">
+            <path fill="none" stroke="#111" stroke-width="1" class="airbrush-sector"></path>
+        </clipPath>
+    </defs>
+</svg>
+
+<ul id="eraser-selector" class="circular-selector">
+    <li data-entry="thickness">
+        <a><span class="selector-entry"><input type="number" name="name" value="10" min="1" max="50"></span></a>
+    </li>
+
+    <li data-entry="shape">
+        <a>
+            <span class="selector-entry shape-entry">
+                <img data-shape="circle" src="img/circle.png" />
+                <img data-shape="square" src="img/square.png" />
+                <br />
+                <img data-shape="diamond" src="img/diamond.png" />
+            </span>
+       </a>
+    </li>
+
+    <li data-entry="opacity">
+        <a><span class="selector-entry"><input type="number" name="name" value="100" min="0" max="100"></span></a>
+    </li>
+
+    <span data-label="thickness">Thickness</span>
+    <span data-label="shape">Shape</span>
+    <span data-label="opacity">Opacity</span>
+</ul>
+<svg height="0" width="0">
+    <defs>
+        <clipPath clipPathUnits="objectBoundingBox" id="eraser-sector">
+            <path fill="none" stroke="#111" stroke-width="1" class="eraser-sector"></path>
+        </clipPath>
+    </defs>
+</svg>
+
+<ul id="picker-selector" class="circular-selector">
+    <li data-entry="thickness">
+        <a><span class="selector-entry"><input type="number" name="name" value="10" min="1" max="50"></span></a>
+    </li>
+
+    <li data-entry="shape">
+        <a>
+            <span class="selector-entry shape-entry">
+                <img data-shape="circle" src="img/circle.png" />
+                <img data-shape="square" src="img/square.png" />
+                <br />
+                <img data-shape="diamond" src="img/diamond.png" />
+            </span>
+        </a>
+    </li>
+
+    <span data-label="thickness">Thickness</span>
+    <span data-label="shape">Shape</span>
+</ul>
+<svg height="0" width="0">
+    <defs>
+        <clipPath clipPathUnits="objectBoundingBox" id="picker-sector">
+            <path fill="none" stroke="#111" stroke-width="1" class="picker-sector"></path>
+        </clipPath>
+    </defs>
+</svg>
+
+<ul id="filler-selector" class="circular-selector">
+    <li data-entry="opacity">
+        <a><span class="selector-entry"><input type="number" name="name" value="100" min="0" max="100"></span></a>
+    </li>
+
+    <li data-entry="threshold">
+        <a><span class="selector-entry"><input type="number" name="name" value="10" min="1" max="100"></span></a>
+    </li>
+
+    <span data-label="opacity">Opacity</span>
+    <span data-label="threshold">Threshold</span>
+</ul>
+<svg height="0" width="0">
+    <defs>
+        <clipPath clipPathUnits="objectBoundingBox" id="filler-sector">
+            <path fill="none" stroke="#111" stroke-width="1" class="filler-sector"></path>
+        </clipPath>
+    </defs>
+</svg>
+
+<div id="option-afford" class="afford"></div>
+
+<div id="input-afford" class="afford"></div>
+                    </div>
+
+                    <!-- Color picker widget -->
+                    <div class="row color-picker-widget-wrapper">
+                        <!-- #include color_picker_widget.html -->
+<!-- image providing an hint for the gesture -->
+<div title="Gesture: rotate your open hand with the thumb closed" id="color-picker-selector-hint" class="selector-hint"></div>
+
+<div id="color-picker-selector">
+
+    <!-- Color selector -->
+    <div id="color-selector" class="slider-fan-selector color-fan-selector">
+
+        <div class="fan-selector-item">
+            <!-- Red slider -->
+            <input id="red-slider" class="slider color-slider red-setting" data-slider-id='red'
+                   type="text" data-slider-min="0" data-slider-max="255" data-slider-step="1" data-slider-value="255" data-slider-orientation="vertical"/>
+        </div>
+
+        <div class="fan-selector-item">
+            <!-- Green slider -->
+            <input id="green-slider" class="slider color-slider green-setting" data-slider-id='green'
+                   type="text" data-slider-min="0" data-slider-max="255" data-slider-step="1" data-slider-value="255" data-slider-orientation="vertical"/>
+        </div>
+
+        <div class="fan-selector-item">
+            <!-- Blue slider -->
+            <input id="blue-slider" class="slider color-slider blue-setting" data-slider-id='blue'
+                   type="text" data-slider-min="0" data-slider-max="255" data-slider-step="1" data-slider-value="255" data-slider-orientation="vertical"/>
+        </div>
+
+        <div class="fan-selector-item">
+            <!-- Alpha slider -->
+            <input id="alpha-slider" class="slider color-slider alpha-setting" data-slider-id='alpha'
+                   type="text" data-slider-min="0" data-slider-max="255" data-slider-step="1" data-slider-value="255" data-slider-orientation="vertical"/>
+        </div>
+
+    </div>
+    <div id="color-display">
+        <table>
+            <tr>
+                <td class="color-item red">
+                    <input id="red-value" class="color-value" type="number" min="0" max="255" value="255" data-color="red">
+                    <label class="color-label">Red</label>
+                </td>
+                <td class="color-item green">
+                    <input id="green-value" class="color-value" type="number" min="0" max="255" value="255" data-color="green">
+                    <label class="color-label">Green</label>
+                </td>
+                <td class="color-item blue">
+                    <input id="blue-value" class="color-value" type="number" min="0" max="255" value="255" data-color="blue">
+                    <label class="color-label">Blue</label>
+                </td>
+                <td class="color-item alpha">
+                    <input id="alpha-value" class="color-value" type="number" min="0" max="255" value="255" data-color="alpha">
+                    <label class="color-label">Alpha</label>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div id="fg-color"></div>
+
+<div id="color-picker-afford" class="afford"></div>
+                    </div>
+                </div>
+
+                <!-- Canvas area -->
+                <div class="canvas-wrapper">
+                    <!-- #include canvas_area.html -->
+<div id="canvas-area">
+    <canvas id="canvas" width="800" height="600"></canvas>
+    <svg id="cursor"></svg>
+</div>
+
+<!-- hidden form for image file input -->
+<input id="image-file" type="file" name="image" accept="image/*">
+
+<!-- hidden anchor for image output -->
+<a id="image-save" download="image.png"></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Overlay popup for canvas size input -->
+        <!-- #include size_popup.html -->
+<div id="size-popup" class="popup">
+    <div class="popup-title">New image size</div>
+    <div class="popup-table">
+        <div class="popup-row">
+            <span class="popup-column"><label for="width">Width: </label></span>
+            <span class="popup-column"><input type="number" name="width" value="800" min="1" max="3000"></span>
+        </div>
+        <div class="popup-row">
+            <span class="popup-column"><label for="height">Height: </label></span>
+            <span class="popup-column"><input type="number" name="height" value="600" min="1" max="3000"></span>
+        </div>
+    </div>
+    <span class="popup-cancel"></span>
+    <span class="popup-exit"></span>
+</div>
+
+        <!-- Overlay popup for about -->
+        <!-- #include about_popup.html -->
+<div id="about-popup" class="popup">
+    <img src="img/logo-light.png" alt="HandSketch" />
+    <p>
+        HandSketch is a prototype for a drawing application, which uses hand gesture tracking as input source for the selection of drawing tools, colors, and their options.
+    </p>
+    <p>
+        This is the final project submitted for the Human-Computer Interaction Class 2015/2016.<br>
+        By 
+        <a href="https://martinopilia.com/aboutme" target="_blank">Martino Pilia</a>, 
+        <a href="https://www.linkedin.com/in/fcole90/" target="_blank">Fabio Colella</a>, 
+        <a href="https://www.linkedin.com/in/michele-contu/" target="_blank">Michele Contu</a>, and
+        <a href="https://github.com/HichamL" target="_blank">Hicham Lafhouli</a>.
+    </p>
+    <p>
+        Selected as one of the three 
+        <a href="https://people.unica.it/davidespano/teaching/ium/archivio-progetti/" target="_blank">
+            Best and exemplary HCI projects of the academic year 2015/2016
+        </a>
+    </p>
+    <span class="popup-exit"></span>
+</div>
+    </body>
+
+    <!-- Custom js (order matters) -->
+    <script src="js/fanSelector.js"></script>
+    <script src="js/colorPicker.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/themeSelector.js"></script>
+    <script src="js/drawing.js"></script>
+    <script src="js/gestureRecognition.js"></script>
+    <script src="js/canvasCoord.js"></script>
+    <script src="js/uiEvents.js"></script>
+    <script src="js/cursor.js"></script>
+    <script src="js/popup.js"></script>
+    <script src="js/circularSelector.js"></script>
+</html>
