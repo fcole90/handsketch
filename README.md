@@ -1,6 +1,6 @@
 # HandSketch - HCI Class Final Project
 
-[![image](https://user-images.githubusercontent.com/1292230/112699718-22337100-8e95-11eb-88e1-acea3cb42729.png)](https://fcole90.github.io/handsketch/)
+![Handsketch Screenshot](https://user-images.githubusercontent.com/1292230/112759397-7a848300-8ffb-11eb-842e-279000f3e4b0.png)
 
  - [Try online demo (without LeapMotion support)](https://fcole90.github.io/handsketch/)
  - [Play demonstration animation](https://github.com/fcole90/handsketch/blob/master/demo.md)
